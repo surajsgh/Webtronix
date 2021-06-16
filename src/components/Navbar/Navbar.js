@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link, useLocation } from "react-router-dom";
 import useStyles from "./Styles";
 import img from "../../assets/webtronix.png";
 
@@ -17,21 +18,30 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 const Navbar = (props) => {
   const styles = useStyles();
+  const location = useLocation();
 
   return (
     <Fragment>
       <CssBaseline />
       <AppBar color="inherit" className={styles.appBar} position="static">
         <Toolbar>
-          {/* <CardMedia height="10" component="img" image={img} /> */}
-          <Typography className={styles.title} variant="h6">
+          <Typography
+            component={Link}
+            to="/"
+            className={styles.title}
+            variant="h6"
+          >
             Webtronix
           </Typography>
-          <IconButton color="primary" aria-label="cart">
-            <Badge badgeContent={props.totalNoOfItems} color="secondary">
-              <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
+          {location.pathname === "/home" && (
+            <IconButton color="primary" aria-label="cart">
+              <Badge badgeContent={props.totalNoOfItems} color="secondary">
+                <Link to="/cart">
+                  <ShoppingCartIcon />
+                </Link>
+              </Badge>
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
     </Fragment>
